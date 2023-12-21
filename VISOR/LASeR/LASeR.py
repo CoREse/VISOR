@@ -56,6 +56,7 @@ class c():
 	random=0
 	chimeras=0
 	glitch=tuple()
+	seed=None
 
 	#bulk
 
@@ -150,7 +151,7 @@ def MultiBadRead(processor,c, tmpfa, hapcov, mateh):
 	Write multiple FASTQ files that will be concatenated in the end
 	'''
 
-	badread_hap_cmd=['badread', 'simulate', '--reference', tmpfa, '--quantity', str(hapcov/c.threads)+'X', '--length', ','.join(str(x) for x in c.length), '--identity', ','.join(str(x) for x in c.identity), '--start_adapter_seq', '', '--end_adapter_seq', '', '--error_model', c.error, '--qscore_model', c.quality, '--junk_reads', str(c.junk), '--random_reads', str(c.random), '--chimeras', str(c.chimeras), '--glitches', ','.join(str(x) for x in c.glitch)]
+	badread_hap_cmd=['badread', 'simulate', '--reference', tmpfa, '--quantity', str(hapcov/c.threads)+'X', '--length', ','.join(str(x) for x in c.length), '--identity', ','.join(str(x) for x in c.identity), '--start_adapter_seq', '', '--end_adapter_seq', '', '--error_model', c.error, '--qscore_model', c.quality, '--junk_reads', str(c.junk), '--random_reads', str(c.random), '--chimeras', str(c.chimeras), '--glitches', ','.join(str(x) for x in c.glitch)]+(['--seed', str(c.seed)] if c.seed!=None else [])
 
 	tmpout=os.path.abspath(mateh+'.'+processor)
 
@@ -542,6 +543,7 @@ def run(parser,args):
 	c.random=args.random_reads
 	c.chimeras=args.chimera_reads
 	c.glitch=(args.glitches_rate, args.glitches_size, args.glitches_skip)
+	c.seed=args.seed
 
 	if args.read_type == 'pacbio':
 

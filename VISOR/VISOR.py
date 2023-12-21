@@ -129,6 +129,7 @@ def main():
 	badread.add_argument('--glitches_rate', help='number of bases between portions of a read where the sequence is messed up (glitch) [5000]', metavar='', default=5000, type=int)
 	badread.add_argument('--glitches_size', help='length of glitches [50]', metavar='', default=10, type=int)
 	badread.add_argument('--glitches_skip', help='number of bases lost in glitches [50]', metavar='', default=10, type=int)
+	badread.add_argument('--seed', help='the seed used in generation, integer, None for badread default (different each time) [None]', metavar='', default=None, type=int)
 
 	bulk = parser_long.add_argument_group('Simulation of bulk data')
 
